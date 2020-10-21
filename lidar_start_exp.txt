@@ -1,0 +1,117 @@
+1.라즈베리 파이에 우분투 18.04 설치
+
+https://youtu.be/zasvSKaobVI
+
+
+
+2.라즈베리파이 4에 ROS melodic 설치
+
+https://youtu.be/s-bSanf7VqM
+
+
+
+2번 필요 명령어들
+
+
+
+$sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list
+
+
+
+$sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+
+
+$sudo apt update
+
+
+
+$sudo apt install ros-melodic-desktop-full
+
+
+
+$sudo pip install -Urosdep
+
+
+
+$sudo rosdep init
+
+
+
+$rosdep update
+
+
+
+$echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+
+
+
+$source ~/.bashrc
+
+
+
+$source /opt/ros/melodic/setup.bash
+
+
+
+$sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+x4 라이다 실행 방법
+
+
+
+1. ROS 설치
+
+- linux 버전에 맞는 ros 설치
+
+
+
+2. catkin workspace 구성
+
+mkdir -p ~/ydlidar_ros_ws/src
+
+cd ~/ydlidar_ros_ws/src
+
+
+
+3. src 폴더에 lidar ros git 가져오기
+
+sudo git clone https://github.com/YDLIDAR/ydlidar_ros
+
+
+
+4. catkin make 실행
+
+cd ~/ydlidar_ros_ws
+
+catkin_make
+
+
+
+5. setup.bash 및 환경 설정
+
+echo "source ~/ydlidar_ros_ws/devel/setup.bash" >> ~/.bashrc
+
+source ~/.bashrc
+
+chmod 0777 src/ydlidar_ros/startup/*
+
+sudo sh src/ydlidar_ros/startup/initenv.sh
+
+
+
+5-1 cd ~/ydlidar_ros_ws/src/ydlidar_ros/src 에서 vi ydliar_node.cpp 실행
+
+baudrate =128000으로 설정
+
+
+
+cd ~/ydlidar_ros_ws
+
+catkin_make
+
+
