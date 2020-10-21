@@ -115,3 +115,18 @@ cd ~/ydlidar_ros_ws
 catkin_make
 
 
+6.  rviz 실행 (실시간 매핑 보기)
+
+roslaunch ydlidar_ros lidar_view.launch
+
+
+
+7. 라이다 실행
+
+roslaunch ydlidar_ros X4.launch
+
+
+
+8. 데이터 콘솔로 보기
+
+rosrun ydlidar_ros ydlidar_client
