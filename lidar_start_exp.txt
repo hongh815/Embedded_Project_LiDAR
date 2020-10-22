@@ -1,11 +1,11 @@
-1.라즈베리 파이에 우분투 18.04 설치
 
+https://github.com/hongh815/Embedded_Project_LiDAR.git
+
+
+1.라즈베리 파이에 우분투 18.04 설치
 https://youtu.be/zasvSKaobVI
 
-
-
 2.라즈베리파이 4에 ROS melodic 설치
-
 https://youtu.be/s-bSanf7VqM
 
 
@@ -90,43 +90,24 @@ cd ~/ydlidar_ros_ws
 
 catkin_make
 
-
-
 5. setup.bash 및 환경 설정
 
 echo "source ~/ydlidar_ros_ws/devel/setup.bash" >> ~/.bashrc
-
 source ~/.bashrc
-
 chmod 0777 src/ydlidar_ros/startup/*
-
 sudo sh src/ydlidar_ros/startup/initenv.sh
-
-
 
 5-1 cd ~/ydlidar_ros_ws/src/ydlidar_ros/src 에서 vi ydliar_node.cpp 실행
 
 baudrate =128000으로 설정
-
-
-
 cd ~/ydlidar_ros_ws
-
 catkin_make
 
-
 6.  rviz 실행 (실시간 매핑 보기)
-
 roslaunch ydlidar_ros lidar_view.launch
 
-
-
 7. 라이다 실행
-
 roslaunch ydlidar_ros X4.launch
 
-
-
 8. 데이터 콘솔로 보기
-
 rosrun ydlidar_ros ydlidar_client

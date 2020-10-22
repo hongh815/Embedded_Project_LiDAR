@@ -85,7 +85,7 @@ int main(int argc, char * argv[]) {
     }
 
     for(uint16_t i =0 ; i < ignore_array.size();i++){
-        if(ignore_array[i] < -180 && ignore_array[i] > 180){
+        if(ignore_array[i] < -90 && ignore_array[i] > 90){
             ROS_ERROR_STREAM("ignore array should be between 0 and 360");
         }
     }
@@ -95,8 +95,8 @@ int main(int argc, char * argv[]) {
     if(frequency<3){
        frequency = 7.0; 
     }
-    if(frequency>15.7){
-        frequency = 15.7;
+    if(frequency>12){
+        frequency = 11;
     }
 
     if(angle_max < angle_min){
