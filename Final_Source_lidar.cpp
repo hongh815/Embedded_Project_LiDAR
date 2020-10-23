@@ -19,11 +19,15 @@
 #include <sys/socket.h>
 //end;
 
+//under add function
+#incldue "made_dectohex.h"
+#incldue "made_soket.h"
+
 #define RAD2DEG(x) ((x)*180./M_PI)
 
 char sendm[1024] = { 0x00 };
 
-void DecToHex(int fr) {
+/*void DecToHex(int fr) {
     //printf("DHSTART");
     printf("%d", fr);
     char message[1024] = { 0x00 };
@@ -68,7 +72,7 @@ int Socket(float num1, float num2, float num3 ) {
 	close(clnt_sock);
 	return 0;
 
-}
+}*/
 
 void scanCallback(const sensor_msgs::LaserScan::ConstPtr& scan)
 {
