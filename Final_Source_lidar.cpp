@@ -24,7 +24,7 @@
 char sendm[1024] = { 0x00 };
 
 void DecToHex(int fr) {
-    printf("DHSTART");
+    //printf("DHSTART");
     printf("%d", fr);
     char message[1024] = { 0x00 };
     sprintf_s(message, "%d", fr);
