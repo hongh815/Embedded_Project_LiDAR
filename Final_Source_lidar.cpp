@@ -24,41 +24,12 @@
 char sendm[1024] = { 0x00 };
 
 void DecToHex(int fr) {
-
-    int i = 0, j = 0, a = 0;
-    int bu;
-    int fu;
-    int arr[1024] = { 0x0F };
-    char message[0] = '/0';
-
-    while (1) {
-        bu = fr % 10;
-        fr /= 10;
-        arr[j] = bu;
-        j++;
-        if (!fr) break;
-    }
-
-
-    while (j - a - 1 > -1) { // Convert DEC -> HEX
-
-        switch (arr[j - a - 1]) {
-        case 0: message[i] = 0x30; break;
-        case 1: message[i] = 0x31; break;
-        case 2: message[i] = 0x32; break;
-        case 3: message[i] = 0x33; break;
-        case 4: message[i] = 0x34; break;
-        case 5: message[i] = 0x35; break;
-        case 6: message[i] = 0x36; break;
-        case 7: message[i] = 0x37; break;
-        case 8: message[i] = 0x38; break;
-        case 9: message[i] = 0x39; break;
-        default: printf("wong value!!!!\n\n\n\n"); break;
-        }
-        a++;
-        i++;
-    }
+    printf("DHSTART");
+    printf("%d", fr);
+    char message[1024] = { 0x00 };
+    sprintf_s(message, "%d", fr);
     strcat(sendm, message);
+    strcat(snedm, "/");
 }
 
 //지역변수로 만듬. -> 배열 합침.
