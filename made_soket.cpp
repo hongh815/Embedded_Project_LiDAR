@@ -1,4 +1,4 @@
-nt Socket(float num1, float num2, float num3) {
+int Socket(float num1, float num2, float num3) {
 
 	int n1 = (int)num1;
 	int n2 = (int)num2;
