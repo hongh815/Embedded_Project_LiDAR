@@ -50,13 +50,15 @@ void scanCallback(const sensor_msgs::LaserScan::ConstPtr& scan)
         float degree = RAD2DEG(scan->angle_min + scan->angle_increment * i);
             if(degree > -180 && degree< 180 && scan->ranges[i]>0.13){ //dgree data print                                                                                                     
             // printf("[YDLIDAR INFO]: angle-distance : [%f, %f, %i]\n", degree,scan->ranges[i], i);                                                                                                             
-            flag=serialGetchar(tmp); //get 50
+            tmp=serialGetchar(fd); //get 50
+            flag=tmp;
             printf("%c\n",flag);
             if(flag != 0){
             		sleep(1);
             		char data;
                 //DirectionControll(degree+180, scan->ranges[i]);       
-            		char datarr[1] = strcpy(data, DirectionControll(degree+180, scan->ranges[i]))         
+            		char datarr[1] = {};
+                    datarr[0] = strcpy(data, DirectionControll(degree+180, scan->ranges[i]));         
             }
         }
     }
@@ -76,7 +78,7 @@ int main(int argc, char **argv)
     }
     ros::init(argc, argv, "ydlidar_client");
     ros::NodeHandle n;
- ros::Subscriber sub = n.subscribe<sensor_msgs::LaserScan>("/scan", 1000, sca                                                                                                             nCallback);
+    ros::Subscriber sub = n.subscribe<sensor_msgs::LaserScan>("/scan", 1000, sca                                                                                                             nCallback);
     ros::spin();
 
     return 0;
