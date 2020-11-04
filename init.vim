@@ -51,7 +51,7 @@ set listchars+=nbsp:·
 set listchars+=space:·
 " set listchars=tab:>·
 " set listchars+=trail:·          "show for tab, trail char at the end of the line
-" set listchars+=extends:»
+" set listchars+=extnds:»
 " set listchars+=precedes:«
 set fillchars+=vert:\│          "Make vertical split separator full line
 
@@ -107,20 +107,20 @@ Plug 'jiangmiao/auto-pairs'             "Auto pair for ',), }, ]...
 Plug 'airblade/vim-gitgutter'           "Show git status in vim
 Plug 'tpope/vim-fugitive'               "Git warpper
 Plug 'ctrlpvim/ctrlp.vim'               "Ctrl + P for search file
-" Plug '~/.fzf'                           "https://github.com/junegunn/fzf.vim
-" Plug 'junegunn/fzf.vim'
+"Plug '~/.fzf'                           "https://github.com/junegunn/fzf.vim
+"Plug 'junegunn/fzf.vim'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-startify'               "fancy start page for empty vim
 Plug 'posva/vim-vue'
-Plug 'iCyMind/NeoSolarized'
+"Plug 'iCyMind/NeoSolarized'
 Plug 'tmhedberg/matchit'                "extended % matching
 "Plug 'kshneoy/vim-signature'            "Showing mark in vim
 "Plug 'wakatime/vim-wakatime'            "Mesure coding time
 Plug 'rizzatti/dash.vim'                "Integration with dash
+Plug 'morhetz/gruvbox'
 Plug 'tomlion/vim-solidity'             "vim solidity syntax
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
-Plug 'majutsushi/tagbar'           " browse tag plugin
 call plug#end()
 
 " User deoplete
@@ -134,7 +134,6 @@ let g:deoplete#enable_at_startup = 1
 "================================= Plugins setting ==================================
 "----- Nerd Tree -----
 " nmap <leader>nt <ESC>:NERDTreeToggle<CR>
-" nmap <F9> :NERDTreeToggle<CR>
 map nt :NERDTreeToggle<CR>
 "map nt <ESC>:NERDTree<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$']    "ignore files in NERDTree
@@ -171,7 +170,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " ALEFix, ALEFixSuggest로 fix 사용 가능
 
 " ----- NeoSolarized -----
-colorscheme NeoSolarized
+colorscheme gruvbox
 set background=dark
 " set background=light
 
