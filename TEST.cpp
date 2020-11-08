@@ -6,6 +6,27 @@
 #include <string.h>
 using namespace std;
 
+#define FORWARD 1
+#define RIGHT 2
+#define LEFT 3
+#define DEGSET(x) ((x)+100)/10
+void directionSet(float degree) {
+    int degree_set = (int)degree;
+    int result = DEGSET(degree_set);
+    switch(result) {
+        case 15:
+            cout << RIGHT << endl;
+            break;
+        case 12:
+            cout << FORWARD << endl;
+            break;
+        case 9:
+            cout << LEFT << endl;
+            break;
+        default:
+            cout << FORWARD << endl;
+    }
+}
 typedef struct sNode {
     float* data;
     float* degree;
@@ -97,6 +118,7 @@ void deleteStack(Stack* stack) {
     free(stack);
 }
 
+
 int main(void) {
 
     int i;
@@ -117,15 +139,24 @@ int main(void) {
         dataList = dataList->next;    
     }
  
-    dataList = Pop(stack);    
 
     for(i=0; i<(stack->size); i++) {
+        dataList = Pop(stack);    
         cout << "pushed  data : " << *(dataList->data) <<endl;
         cout << "pushed  degree: " << *(dataList->degree) <<endl;
         dataList = dataList->next;    
     }
 
+    vector<Node*> vec_data;
+    for(i=0; i<(stack->size); i++) {
+        vec_data.push_back(dataList);
+        dataList = dataList->next;    
+    }
+    sort(vec_data.begin(), vec_data.end(), greater<>());
+    cout << *(vec_data[0]->degree) << endl;
 
+    cout << " " << endl;
+    directionSet(*(dataList->degree));
     /*    vector< vector<int> > vecTEST;
     vector<int> ve1;
     vector<int> ve2;
