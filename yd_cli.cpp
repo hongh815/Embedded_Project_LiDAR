@@ -9,6 +9,9 @@
 #include <wiringSerial.h>
 #include <unistd.h>
 #include <iostream>
+#include <vector>
+#include <algorithm>
+#include <iterator>
 #define RAD2DEG(x) ((x)*180./M_PI)
 
 
@@ -21,6 +24,7 @@
 #define STOP 7
 
 using namespace std;
+
 char device[] = "/dev/ttyACM0";
 int fd;
 unsigned long baud = 9600;
@@ -45,11 +49,32 @@ char DirectionControll(float x, float y) {
 
 void scanCallback(const sensor_msgs::LaserScan::ConstPtr& scan)
 {
+
+    int i;
    // int count = scan->scan_time / scan->time_increment;    
-    for(int i = 0; i < 720; i++) { // count 값 ==> -5 ~ 5 도 값 , 0도에서 180도는 왼쪽방향임
+    for(i = 0; i < 360; i++) { // count 값 ==> -5 ~ 5 도 값 , 0도에서 180도는 왼쪽방향임
+        
+
         float degree = RAD2DEG(scan->angle_min + scan->angle_increment * i);
-            if(degree > -180 && degree< 180 && scan->ranges[i]>0.13){ //dgree data print                                                                                                     
-            // printf("[YDLIDAR INFO]: angle-distance : [%f, %f, %i]\n", degree,scan->ranges[i], i);                                                                                                             
+          
+        if(degree > -180 && degree< 180 && scan->ranges[i]>0.13){ //dgree data print                                                                                                // printf("[YDLIDAR INFO]: angle-distance : [%f, %f, %i]\n", degree,scan->ranges[i], i);                                                                                                             
+            
+            vector< vector<float> > angle_2vec;
+            vector<float> range_vec;
+            vector<float> degree_vec;
+
+            degree_vec.push_back(degree);
+            range_vec.push_back(scan->ranges[i]);
+
+            angle_2vec.push_back(degree_vec);
+            angle_2vec.push_back(range_vec);
+            
+            sort(angle_2vec.begin[1](), angle_2vec.end[1]());
+            reverse(begin(angle_2vec[1]), end(angle_2vec[1])); 
+            cout << angle_2vec[0].size()\n;  // largest scan->range degree data out
+            cout << angle_2vec[1].size() << endl;  // largest scan->range data out
+            
+
             tmp=serialGetchar(fd); //get 50
             flag=tmp;
             printf("%c\n",flag);
