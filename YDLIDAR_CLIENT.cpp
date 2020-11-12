@@ -30,7 +30,8 @@ unsigned long baud = 9600;
 int tmp=55;
 int flag=70;
 int num = 0;
-
+float send_dist = -1; 
+float send_degree = 1; 
 #define FORWARD 70
 #define RIGHT 82
 #define LEFT 76
@@ -72,7 +73,9 @@ void return_function_one(float degree, float distance) {
     }
 }
 void directionSet(float degree) {
+    cout << "degree ::: >>> " << degree << endl;
     int result = (int)DEGSET(degree);
+    cout << "degree < > :  : >>>> " << result << endl;
 	int out_result;
 	if(result <= 23 || result >= 50) {
 		out_result = BACK;
@@ -85,19 +88,19 @@ void directionSet(float degree) {
 	} else out_result = 0;
 
     switch(out_result) {
-        case 2:
+        case 82:
             cout << "dir : RIGHT - "<< RIGHT << endl;
             serialPutchar(fd, RIGHT);
             break;
-        case 1:
+        case 70:
             cout << "dir : FORWARD - " << FORWARD << endl;
             serialPutchar(fd, FORWARD);
             break;
-        case 4:
+        case 66:
             cout << "dir : BACK - " << BACK << endl;
             serialPutchar(fd, BACK);
             break;
-        case 3:
+        case 76:
             cout << "dir : LEFT - " << LEFT << endl;
             serialPutchar(fd, LEFT);
             break;
@@ -108,20 +111,17 @@ void directionSet(float degree) {
 }
 
 
-void return_function_two(float degree, float distance) {
-    int i;
-	float send_degree; 
-	float send_dist = -1; 
-		
+float return_function_two(float degree, float distance) {
 	if(send_dist < distance){ //block
-	//printf("[YDLIDAR INFO]: angle-distance : [%f, %f, %i]\n", degree, scan->ranges[i], i);
     	send_dist = distance;
 	    send_degree = degree;
-	} //end block	
-
-    directionSet(send_degree);
-
     
+    cout << "send dist ::>>" << send_dist << endl;
+    
+	} //end block	
+    else return 1;
+
+    return send_degree;
 /*	printf("degree :: %f\n", send_degree);
 	printf("dist :: %f\n", send_dist);
 	printf("count :: %d\n", count);   	
@@ -130,11 +130,12 @@ void return_function_two(float degree, float distance) {
 
 
 
-
 void scanCallback(const sensor_msgs::LaserScan::ConstPtr& scan)
 {
 //    int count = scan->scan_time / scan->time_increment;
 	int count = scan->scan_time / scan->time_increment;    	
+    send_degree = 1;
+    
     //printf("[YDLIDAR INFO]: I heard a laser scan %s[%d]:\n", scan->header.frame_id.c_str(), count);
     //printf("[YDLIDAR INFO]: angle_range : [%f, %f]\n", RAD2DEG(scan->angle_min), RAD2DEG(scan->angle_max));
   
@@ -147,13 +148,12 @@ void scanCallback(const sensor_msgs::LaserScan::ConstPtr& scan)
         float distance = scan->ranges[i];      
 
    if(digitalRead(ARDUINO) || fa == 1){ // this add if no fa (flag) this code no operation; frist signal must operating; 
-    if(distance >0.15 && distance <0.4){ //block
+    if(distance >0.15){ //block dis < 0.4
    
         //printf("[YDLIDAR INFO]: angle-distance : [%f, %f, %i]\n", degree, scan->ranges[i], i);
    //     return_function_one(degree, distance);  gilhee function
           
-        return_function_two(degree, distance); //hongbeom function
-        break;  
+        send_degree = return_function_two(degree, distance); //hongbeom function
        }
     /*   else if(distance >0.15 && flag != 0 && degree>-40 && degree < 40){ //forward
       printf("forward: %f %f\n",degree,distance); 
@@ -164,6 +164,7 @@ void scanCallback(const sensor_msgs::LaserScan::ConstPtr& scan)
     }
     
 }
+        directionSet(send_degree);
 }
 
 
